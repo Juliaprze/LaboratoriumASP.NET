@@ -35,9 +35,12 @@ public class Calculator
         }
     }
 
+    public object ErrorMessage { get; set; }
+
     public bool IsValid()
     {
-        return op != null && a != null && b != null;
+        if(a is null || b is null || op is null) return false;
+        return true;
     }
 
     public double Calculate()
