@@ -1,76 +1,88 @@
+﻿using WebApplication1.Models;
+using LaboratoriumASPNET.Models.Services;
 using Microsoft.AspNetCore.Mvc;
-using WebApplication1.Models;
 
-namespace WebApplication1.Controllers
+namespace WebApplication1.Controllers;
+public class ContactController : Controller
 {
-    public class ContactController : Controller
+    private readonly IContactService _contactService;
+
+    // Konstruktor z wstrzykiwaniem zależności
+    public ContactController(IContactService contactService)
     {
-        // rozwiązanie tymczasowe
-        private static Dictionary<int, ContactModel> _contacts = new();
+        _contactService = contactService;
+    }
 
-        private static int _currentId;
-
-        // Lista kontaktów
-        public IActionResult Index()
-        {
-            return View(_contacts);
-        }
+    // Lista kontaktów
+    public IActionResult Index()
+    {
+        // Przekazujemy listę kontaktów do widoku
+        return View(_contactService.GetAll());
+    }
     
-        // Formularz dodania kontaktu
-        public IActionResult Add()
-        {
-            return View();
-        }
+    // Formularz dodania kontaktu
+    public IActionResult Add()
+    {
+        return View();
+    }
 
-        // Odebranie danych z formularza i zapisanie w kontaktach
-        [HttpPost]
-        public IActionResult Add(ContactModel model)
+    // Odebranie danych z formularza i zapisanie w kontaktach
+    [HttpPost]
+    public IActionResult Add(ContactModel model)
+    {
+        if (!ModelState.IsValid)
         {
-            if (!ModelState.IsValid)
-            {
-                return View(model);
-            }
-            model.Id = _currentId++;
-            _contacts.Add(model.Id, model);
-            return View("Index", _contacts);
+            return View(model);
         }
+        
+        _contactService.Add(model);
 
-        public IActionResult Delete(int id)
-        {
-            _contacts.Remove(id);
-            return View("Index", _contacts);
-        }
+        // Przekierowanie do listy kontaktów po dodaniu nowego kontaktu
+        return RedirectToAction("Index");
+    }
 
-        public IActionResult Details(int id)
+    // Usunięcie kontaktu
+    public IActionResult Delete(int id)
+    {
+        _contactService.Delete(id);
+
+        // Przekierowanie do listy kontaktów po usunięciu kontaktu
+        return RedirectToAction("Index");
+    }
+
+    // Szczegóły kontaktu
+    public IActionResult Details(int id)
+    {
+        var contact = _contactService.GetById(id);
+        if (contact == null)
         {
-            return View(_contacts[id]);
-        }
-    
-        public IActionResult Edit(int id)
-        {
-            if (_contacts.TryGetValue(id, out var contact))
-            {
-                return View(contact);
-            }
             return NotFound();
         }
-
-        // POST: Zapisz zmiany kontaktu
-        [HttpPost]
-        public IActionResult Edit(ContactModel model)
+        return View(contact);
+    }
+    
+    // Formularz edycji kontaktu
+    public IActionResult Edit(int id)
+    {
+        var contact = _contactService.GetById(id);
+        if (contact == null)
         {
-            if (!ModelState.IsValid)
-            {
-                return View(model);
-            }
-        
-            if (_contacts.ContainsKey(model.Id))
-            {
-                _contacts[model.Id] = model;
-                return RedirectToAction("Index");
-            }
-        
             return NotFound();
         }
+        
+        return View(contact);
+    }
+
+    // POST: Zapisz zmiany kontaktu
+    [HttpPost]
+    public IActionResult Edit(ContactModel model)
+    {
+        if (!ModelState.IsValid)
+        {
+            return View(model);
+        }
+        
+        _contactService.Update(model);
+        return RedirectToAction("Index");
     }
 }
