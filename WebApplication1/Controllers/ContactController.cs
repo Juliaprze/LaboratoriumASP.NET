@@ -1,8 +1,9 @@
-﻿using WebApplication1.Models;
+using WebApplication1.Models;
 using LaboratoriumASPNET.Models.Services;
 using Microsoft.AspNetCore.Mvc;
 
-namespace WebApplication1.Controllers;
+namespace LaboratoriumASPNET.Controllers;
+
 public class ContactController : Controller
 {
     private readonly IContactService _contactService;

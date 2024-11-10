@@ -1,3 +1,4 @@
+using LaboratoriumASPNET.Models;
 using WebApplication1.Models;
 using LaboratoriumASPNET.Models.Services;
 
@@ -9,6 +10,8 @@ namespace WebApplication1
         {
             var builder = WebApplication.CreateBuilder(args);
 
+            builder.Services.AddDbContext<AppDbContext>(); 
+            
             // Add services to the container.
             builder.Services.AddControllersWithViews();
             builder.Services.AddSingleton<IContactService, MemoryContactService>();

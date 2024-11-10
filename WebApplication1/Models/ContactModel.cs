@@ -33,7 +33,7 @@ public class ContactModel
     [Display(Name = "Data urodzenia")]
 
     public DateTime DateOfBirth { get; set; }
+    
     [Display(Name = "Kategoria")]
-
     public Category Category { get; set; }
 }
