@@ -1,6 +1,5 @@
 ﻿using WebApplication1.Models;
 
-
 namespace LaboratoriumASPNET.Models.Services;
 
 public class MemoryContactService : IContactService
@@ -16,7 +15,7 @@ public class MemoryContactService : IContactService
                 Category = Category.Family,
                 Id = 1,
                 Email = "john.doe@gmail.com",
-                Phone = "088 888 888",
+                Phone = "08888888888",
                 DateOfBirth = new DateTime(2005, 1, 1)
             }
         },
@@ -29,7 +28,7 @@ public class MemoryContactService : IContactService
                 Category = Category.Friend,
                 Id = 2,
                 Email = "eve.fisher@gmail.com",
-                Phone = "8886 777 789",
+                Phone = "088888677778",
                 DateOfBirth = new DateTime(2000, 10, 2)
             }
         },
@@ -39,10 +38,10 @@ public class MemoryContactService : IContactService
             {
                 FirstName = "Mark",
                 LastName = "Hamster",
-                Category = Category.Business,
+             
                 Id = 3,
                 Email = "m.hamster@gmail.com",
-                Phone = "822 288 886",
+                Phone = "08882228888",
                 DateOfBirth = new DateTime(1900, 10, 1)
             }
         }
@@ -78,5 +77,10 @@ public class MemoryContactService : IContactService
     {
         _contacts.TryGetValue(id, out var contact);
         return contact;
+    }
+
+    public List<OrganizationEntity> FindAllOrganizations()
+    {
+        throw new NotImplementedException();
     }
 }

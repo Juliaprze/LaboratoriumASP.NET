@@ -1,6 +1,5 @@
 ﻿using WebApplication1.Models;
 
-
 namespace LaboratoriumASPNET.Models.Services;
 
 public class EFContactService : IContactService
@@ -42,5 +41,10 @@ public class EFContactService : IContactService
     {
         var entity = _context.Contacts.Find(id);
         return entity != null? ContactMapper.FromEntity(entity) : null;
+    }
+
+    public List<OrganizationEntity> FindAllOrganizations()
+    {
+        return _context.Organizations.ToList();
     }
 }
