@@ -1,50 +1,60 @@
 ﻿using WebApplication1.Models;
+using Microsoft.EntityFrameworkCore;
 
-namespace LaboratoriumASPNET.Models.Services;
-
-public class EFContactService : IContactService
+namespace LaboratoriumASPNET.Models.Services
 {
-    
-    private readonly AppDbContext _context;
-
-    public EFContactService(AppDbContext context)
+    public class EFContactService : IContactService
     {
-        _context = context;
-    }
+        private readonly AppDbContext _context;
 
-    public void Add(ContactModel model)
-    {
-        _context.Contacts.Add(ContactMapper.ToEntity(model));
-        _context.SaveChanges();
-    }
+        public EFContactService(AppDbContext context)
+        {
+            _context = context;
+        }
 
-    public void Update(ContactModel model)
-    {
-        _context.Contacts.Update(ContactMapper.ToEntity(model));
-        _context.SaveChanges();
-    }
+        // Add a new contact
+        public void Add(ContactModel model)
+        {
+            _context.Contacts.Add(ContactMapper.ToEntity(model));
+            _context.SaveChanges();
+        }
 
-    public void Delete(int id)
-    {
-        _context.Contacts.Remove(new ContactEntity() { Id = id });
-        _context.SaveChanges();
-    }
+        // Update an existing contact
+        public void Update(ContactModel model)
+        {
+            _context.Contacts.Update(ContactMapper.ToEntity(model));
+            _context.SaveChanges();
+        }
 
-    public List<ContactModel> GetAll()
-    {
-        return _context.Contacts
-            .Select(e => ContactMapper.FromEntity(e))
-            .ToList();
-    }
+        // Delete a contact by id
+        public void Delete(int id)
+        {
+            _context.Contacts.Remove(new ContactEntity { Id = id });
+            _context.SaveChanges();
+        }
 
-    public ContactModel? GetById(int id)
-    {
-        var entity = _context.Contacts.Find(id);
-        return entity != null? ContactMapper.FromEntity(entity) : null;
-    }
+        // Retrieve all contacts
+        public List<ContactModel> GetAll()
+        {
+            return _context.Contacts
+                .Select(e => ContactMapper.FromEntity(e))
+                .ToList();
+        }
 
-    public List<OrganizationEntity> FindAllOrganizations()
-    {
-        return _context.Organizations.ToList();
+        // Retrieve a contact by id, including the navigation property 'Organization'
+        public ContactModel? GetById(int id)
+        {
+            var entity = _context.Contacts
+                .Include(e => e.Organization)
+                .FirstOrDefault(e => e.Id == id);
+
+            return entity != null ? ContactMapper.FromEntity(entity) : null;
+        }
+
+        // Retrieve all organizations
+        public List<OrganizationEntity> FindAllOrganizations()
+        {
+            return _context.Organizations.ToList();
+        }
     }
 }
