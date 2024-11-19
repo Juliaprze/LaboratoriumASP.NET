@@ -1,6 +1,8 @@
 using LaboratoriumASPNET.Models;
 using WebApplication1.Models;
 using LaboratoriumASPNET.Models.Services;
+using Microsoft.AspNetCore.Identity;
+using Microsoft.EntityFrameworkCore;
 
 namespace WebApplication1
 {
@@ -10,11 +12,15 @@ namespace WebApplication1
         {
             var builder = WebApplication.CreateBuilder(args);
 
-            builder.Services.AddDbContext<AppDbContext>(); 
-            
-            // Add services to the container.
+            builder.Services.AddRazorPages();                         // dodać
             builder.Services.AddControllersWithViews();
-            builder.Services.AddSingleton<IContactService, MemoryContactService>();
+            builder.Services.AddDbContext<AppDbContext>();
+            builder.Services.AddDefaultIdentity<IdentityUser>()       // dodać
+                .AddRoles<IdentityRole>()                             //
+                .AddEntityFrameworkStores<AppDbContext>();     // 
+            builder.Services.AddTransient<IContactService, EFContactService>();
+            builder.Services.AddMemoryCache();                        // dodać
+            builder.Services.AddSession();  
             var app = builder.Build();
 
             // Configure the HTTP request pipeline.
@@ -31,6 +37,9 @@ namespace WebApplication1
             app.UseRouting();
 
             app.UseAuthorization();
+            app.UseAuthorization();                                  // dodać
+            app.UseSession();                                        // dodać 
+            app.MapRazorPages();        
 
             app.MapControllerRoute(
                 name: "default",

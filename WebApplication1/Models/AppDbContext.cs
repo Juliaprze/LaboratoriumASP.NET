@@ -1,13 +1,16 @@
-﻿using WebApplication1.Models;
+﻿using System.ComponentModel.Design;
+using Microsoft.AspNetCore.Identity;
+using WebApplication1.Models;
+using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 
 namespace LaboratoriumASPNET.Models
 {
-    public class AppDbContext : DbContext
+    public class AppDbContext : IdentityDbContext<IdentityUser>
     {
         public DbSet<ContactEntity> Contacts { get; set; }
         public DbSet<OrganizationEntity> Organizations { get; set; }
-        
+
         private string DbPath { get; set; }
 
         public AppDbContext()
@@ -19,12 +22,64 @@ namespace LaboratoriumASPNET.Models
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
-            optionsBuilder.UseSqlite($"Data source={DbPath}");
+            optionsBuilder.UseSqlite($"Data source = {DbPath}");
         }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
-            // Konfiguracja encji OrganizationEntity z własnością Address
+            base.OnModelCreating(modelBuilder);
+
+            // Ustawienia ról
+            string ADMIN_ID = Guid.NewGuid().ToString();
+            string USER_ID = Guid.NewGuid().ToString();
+
+            modelBuilder.Entity<IdentityRole>()
+                .HasData(
+                    new IdentityRole
+                    {
+                        Id = ADMIN_ID,
+                        Name = "admin",
+                        NormalizedName = "ADMIN",
+                        ConcurrencyStamp = ADMIN_ID
+                    },
+                    new IdentityRole
+                    {
+                        Id = USER_ID,
+                        Name = "user",
+                        NormalizedName = "USER",
+                        ConcurrencyStamp = USER_ID
+                    }
+                );
+
+            // Utworzenie użytkowników
+            var admin = new IdentityUser
+            {
+                Id = ADMIN_ID,
+                UserName = "Adam",
+                NormalizedUserName = "ADAM",
+                Email = "adam@wsei.edu.pl",
+                NormalizedEmail = "ADAM@WSEI.EDU.PL",
+                EmailConfirmed = true
+            };
+
+            var user = new IdentityUser
+            {
+                Id = USER_ID,
+                UserName = "Ewa",
+                NormalizedUserName = "EWA",
+                Email = "ewa@wsei.edu.pl",
+                NormalizedEmail = "EWA@WSEI.EDU.PL",
+                EmailConfirmed = true
+            };
+
+            // Dodanie hasła dla użytkowników
+            PasswordHasher<IdentityUser> hasher = new PasswordHasher<IdentityUser>();
+            admin.PasswordHash = hasher.HashPassword(admin, "1234!");
+            user.PasswordHash = hasher.HashPassword(user, "5678!");
+
+            modelBuilder.Entity<IdentityUser>().HasData(admin, user);
+
+            // Dodanie organizacji z adresem
             modelBuilder.Entity<OrganizationEntity>()
                 .OwnsOne(o => o.Adress)
                 .HasData(
@@ -32,13 +87,13 @@ namespace LaboratoriumASPNET.Models
                     new { OrganizationEntityId = 2, City = "Warszawa", Street = "Wesoła 15" }
                 );
 
-            // Relacja między ContactEntity a OrganizationEntity
+            // Relacje między ContactEntity a OrganizationEntity
             modelBuilder.Entity<ContactEntity>()
                 .HasOne<OrganizationEntity>(c => c.Organization)
                 .WithMany(o => o.Contacts)
                 .HasForeignKey(c => c.OrganizationId);
 
-            // Dane przykładowe dla OrganizationEntity
+            // Wstawienie danych organizacji
             modelBuilder.Entity<OrganizationEntity>()
                 .HasData(
                     new OrganizationEntity
@@ -46,18 +101,18 @@ namespace LaboratoriumASPNET.Models
                         Id = 1,
                         Regon = "321321321",
                         Nip = "123456",
-                        Name = "WSEI"
+                        Name = "WSEI",
                     },
                     new OrganizationEntity
                     {
                         Id = 2,
                         Regon = "123123123",
                         Nip = "432432",
-                        Name = "Famo"
+                        Name = "Famo",
                     }
                 );
 
-            // Dane przykładowe dla ContactEntity
+            // Wstawienie danych kontaktów
             modelBuilder.Entity<ContactEntity>()
                 .HasData(
                     new ContactEntity
