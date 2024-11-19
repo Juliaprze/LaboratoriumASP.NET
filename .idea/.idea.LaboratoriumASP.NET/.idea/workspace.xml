@@ -10,8 +10,20 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="6767c943-2fce-44cd-8032-cbf5951285ac" name="Changes" comment=".">
-      <change beforePath="$PROJECT_DIR$/WebApplication1/Models/Services/EFContactService.cs" beforeDir="false" afterPath="$PROJECT_DIR$/WebApplication1/Models/Services/EFContactService.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/WebApplication1/Views/Contact/Index.cshtml" beforeDir="false" afterPath="$PROJECT_DIR$/WebApplication1/Views/Contact/Index.cshtml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/.idea.LaboratoriumASP.NET/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.LaboratoriumASP.NET/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/WebApplication1/Models/ContactEntity.cs" beforeDir="false" afterPath="$PROJECT_DIR$/WebApplication1/Models/ContactEntity.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/WebApplication1/Models/ContactMapper.cs" beforeDir="false" afterPath="$PROJECT_DIR$/WebApplication1/Models/ContactMapper.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/WebApplication1/bin/Debug/net8.0/WebApplication1.dll" beforeDir="false" afterPath="$PROJECT_DIR$/WebApplication1/bin/Debug/net8.0/WebApplication1.dll" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/WebApplication1/bin/Debug/net8.0/WebApplication1.exe" beforeDir="false" afterPath="$PROJECT_DIR$/WebApplication1/bin/Debug/net8.0/WebApplication1.exe" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/WebApplication1/bin/Debug/net8.0/WebApplication1.pdb" beforeDir="false" afterPath="$PROJECT_DIR$/WebApplication1/bin/Debug/net8.0/WebApplication1.pdb" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/WebApplication1/obj/Debug/net8.0/WebApplication1.AssemblyInfo.cs" beforeDir="false" afterPath="$PROJECT_DIR$/WebApplication1/obj/Debug/net8.0/WebApplication1.AssemblyInfo.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/WebApplication1/obj/Debug/net8.0/WebApplication1.AssemblyInfoInputs.cache" beforeDir="false" afterPath="$PROJECT_DIR$/WebApplication1/obj/Debug/net8.0/WebApplication1.AssemblyInfoInputs.cache" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/WebApplication1/obj/Debug/net8.0/WebApplication1.dll" beforeDir="false" afterPath="$PROJECT_DIR$/WebApplication1/obj/Debug/net8.0/WebApplication1.dll" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/WebApplication1/obj/Debug/net8.0/WebApplication1.pdb" beforeDir="false" afterPath="$PROJECT_DIR$/WebApplication1/obj/Debug/net8.0/WebApplication1.pdb" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/WebApplication1/obj/Debug/net8.0/WebApplication1.sourcelink.json" beforeDir="false" afterPath="$PROJECT_DIR$/WebApplication1/obj/Debug/net8.0/WebApplication1.sourcelink.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/WebApplication1/obj/Debug/net8.0/apphost.exe" beforeDir="false" afterPath="$PROJECT_DIR$/WebApplication1/obj/Debug/net8.0/apphost.exe" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/WebApplication1/obj/Debug/net8.0/ref/WebApplication1.dll" beforeDir="false" afterPath="$PROJECT_DIR$/WebApplication1/obj/Debug/net8.0/ref/WebApplication1.dll" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/WebApplication1/obj/Debug/net8.0/refint/WebApplication1.dll" beforeDir="false" afterPath="$PROJECT_DIR$/WebApplication1/obj/Debug/net8.0/refint/WebApplication1.dll" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -143,7 +155,7 @@
       <workItem from="1730115300518" duration="441000" />
       <workItem from="1730115780659" duration="3881000" />
       <workItem from="1730119842613" duration="7399000" />
-      <workItem from="1730627669557" duration="22298000" />
+      <workItem from="1730627669557" duration="29361000" />
     </task>
     <task id="LOCAL-00001" summary=".">
       <option name="closed" value="true" />
@@ -225,7 +237,15 @@
       <option name="project" value="LOCAL" />
       <updated>1731413343182</updated>
     </task>
-    <option name="localTasksCounter" value="11" />
+    <task id="LOCAL-00011" summary=".">
+      <option name="closed" value="true" />
+      <created>1731413733371</created>
+      <option name="number" value="00011" />
+      <option name="presentableId" value="LOCAL-00011" />
+      <option name="project" value="LOCAL" />
+      <updated>1731413733371</updated>
+    </task>
+    <option name="localTasksCounter" value="12" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">

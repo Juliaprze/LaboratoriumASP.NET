@@ -25,9 +25,9 @@ public class ContactEntity
     
     public DateTime Created { get; set; }
     
-    public Category Category { get; set; }
-    
-    public int OrganizationId { get; set; }
-    public OrganizationEntity Organization { get; set; }
+    public int Category { get; set; }
 
+    public int OrganizationId { get; set; }
+    public OrganizationEntity? Organization { get; set; }
+    
 }

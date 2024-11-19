@@ -14,7 +14,7 @@ public class ContactMapper
             DateOfBirth = entity.DateOfBirth,
             Phone = entity.Phone,
             Email = entity.Email,
-            Category = entity.Category,
+            Category = (Category)entity.Category, 
             OrganizationId = entity.OrganizationId
         };
     }
@@ -29,7 +29,7 @@ public class ContactMapper
             DateOfBirth = model.DateOfBirth,
             Phone = model.Phone,
             Email = model.Email,
-            Category = model.Category,
+            Category = (int)model.Category, 
             OrganizationId = model.OrganizationId
         };
     }
